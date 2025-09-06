@@ -1,13 +1,11 @@
 # Use lightweight nginx base image
 FROM nginx:alpine
 
-# Install AWS CLI and tar
+# Install AWS CLI and tar without pip (use Alpine package manager)
 RUN apk add --no-cache \
-      python3 \
-      py3-pip \
-      groff \
-      less \
+      aws-cli \
       bash \
       tar \
-    && pip3 install --no-cache-dir awscli \
-    && rm -rf /var/cache/apk/*
+      curl \
+      less \
+      groff
