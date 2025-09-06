@@ -1,7 +1,12 @@
-# Use lightweight nginx base image
-FROM nginx:1.27.3
+# Use Debian-based nginx image
+FROM nginx:stable
 
-# Install AWS CLI and tar without pip (use Alpine package manager)
-RUN apt-get update -y
-RUN apt-get install curl awscli net-tool telnet dnsutils vim -y
-RUN aws configure set default.s3.signature_version s3v4
+# Install dependencies
+RUN apt-get update -y && apt-get install -y \
+    curl \
+    awscli \
+    net-tools \
+    telnet \
+    dnsutils \
+    vim \
+ && rm -rf /var/lib/apt/lists/*
