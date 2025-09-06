@@ -1,13 +1,7 @@
 # Use lightweight nginx base image
-FROM nginx:alpine
+FROM nginx:1.27.3
 
-# Install AWS CLI and tar
-RUN apk add --no-cache \
-      python3 \
-      py3-pip \
-      groff \
-      less \
-      bash \
-      tar \
-    && pip3 install --no-cache-dir awscli \
-    && rm -rf /var/cache/apk/*
+# Install AWS CLI and tar without pip (use Alpine package manager)
+RUN apt-get update -y
+RUN apt-get install curl awscli net-tool telnet dnsutils vim -y
+RUN aws configure set default.s3.signature_version s3v4
